@@ -103,6 +103,14 @@ kotlin {
             }
         }
 
+        val jvmMain by getting {
+            dependencies {
+                implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+            }
+        }
+
         val androidMain by getting {
             dependencies {
                 implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")

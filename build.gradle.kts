@@ -92,6 +92,7 @@ kotlin {
                 implementation("io.arrow-kt:arrow-core:$arrowVersion")
                 implementation("org.kodein.di:kodein-di:$kodeinDiVersion")
             }
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
         val commonTest by getting {
             dependencies {

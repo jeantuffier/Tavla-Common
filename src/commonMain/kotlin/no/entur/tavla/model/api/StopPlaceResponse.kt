@@ -1,6 +1,4 @@
-package no.entur.tavla.model
-
-import kotlinx.serialization.SerialName
+package no.entur.tavla.model.api
 
 data class StopPlaceResponse(
     val geoCoding: GeoCoding,

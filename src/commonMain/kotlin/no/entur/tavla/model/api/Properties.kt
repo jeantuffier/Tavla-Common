@@ -1,4 +1,4 @@
-package no.entur.tavla.model
+package no.entur.tavla.model.api
 
 import kotlinx.serialization.SerialName
 

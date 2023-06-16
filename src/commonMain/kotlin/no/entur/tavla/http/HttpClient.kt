@@ -30,6 +30,6 @@ internal fun httpClient() = HttpClient(httpClientEngineFactory) {
     install(Resources)
 
     defaultRequest {
-        url("https://mcbnamespace3oy8mk98-mcb-container.functions.fnc.fr-par.scw.cloud")
+        url("https://api.entur.io")
     }
 }

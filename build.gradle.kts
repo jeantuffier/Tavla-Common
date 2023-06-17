@@ -12,8 +12,11 @@ val kspVersion: String by extra
 val arrowVersion: String by extra
 val turbineVersion: String by extra
 
-group = "no.entur.tavla"
-version = "0.1.0"
+val GROUP: String by extra
+val LIBRARY_VERSION: String by extra
+
+group = GROUP
+version = LIBRARY_VERSION
 
 plugins {
     kotlin("multiplatform")
@@ -43,7 +46,7 @@ repositories {
 sqldelight {
     databases {
         create("Database") {
-            packageName.set("com.example")
+            packageName.set("no.entur.tavla")
         }
     }
 }

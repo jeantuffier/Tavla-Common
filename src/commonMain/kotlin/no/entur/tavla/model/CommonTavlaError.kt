@@ -1,4 +1,4 @@
 package no.entur.tavla.model
 
-interface CommonTavlaError {
+sealed class CommonTavlaError : Throwable() {
 }

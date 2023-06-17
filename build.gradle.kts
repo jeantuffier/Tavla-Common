@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 val kotlinVersion: String by extra
 val kotlinxCoroutinesVersion: String by extra
@@ -147,6 +149,18 @@ dependencies {
 
 tasks.named("build") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+tasks.withType<KotlinNativeCompile>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
 
 tasks.named("compileKotlinJvm") {

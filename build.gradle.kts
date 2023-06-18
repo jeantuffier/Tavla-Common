@@ -42,8 +42,8 @@ repositories {
         url = uri("https://maven.pkg.github.com/jeantuffier/statemachine")
         name = "github"
         credentials {
-            username = System.getenv("GITHUB_USERNAME")
-            password = System.getenv("GITHUB_PASSWORD")
+            username = System.getenv("ACTIONS_USERNAME")
+            password = System.getenv("ACTIONS_TOKEN")
         }
     }
 }

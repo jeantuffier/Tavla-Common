@@ -1,11 +1,13 @@
 name: KMMBridge Publish Release
-on: workflow_dispatch
-
-jobs:
-  call-kmmbridge-publish:
+on:
+  workflow_dispatch:
     secrets:
       ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+
+
+jobs:
+  call-kmmbridge-publish:
     permissions:
       contents: write
       packages: write

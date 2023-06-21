@@ -1,7 +1,7 @@
 name: KMMBridge Publish Release
 on:
   workflow_dispatch:
-    secrets:
+    env:
       ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
 

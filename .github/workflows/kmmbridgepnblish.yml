@@ -3,6 +3,9 @@ on: workflow_dispatch
 
 jobs:
   call-kmmbridge-publish:
+    secrets:
+      ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
     permissions:
       contents: write
       packages: write

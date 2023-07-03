@@ -10,3 +10,6 @@ jobs:
     secrets:
       ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
       ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+    with:
+      ACTIONS_USERNAME: ${{ secrets.ACTIONS_USERNAME }}
+      ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}

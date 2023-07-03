@@ -1,11 +1,14 @@
 name: KMMBridge Publish Release
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    secrets:
+      ACTIONS_USERNAME:
+        required: true
+      ACTIONS_TOKEN:
+        required: true
 
 jobs:
-  call-kmmbridge-publish:
-    permissions:
-      contents: write
-      packages: write
+  set-netrc:
     runs-on: ubuntu-latest
     steps:
       - uses: extractions/netrc@v1
@@ -13,4 +16,9 @@ jobs:
           machine: maven.pkg.github.com
           username: ${{ secrets.ACTIONS_USERNAME }}
           password: ${{ secrets.ACTIONS_TOKEN }}
-      - uses: touchlab/KMMBridgeGithubWorkflow/.github/workflows/faktorybuildbranches.yml@v0.9
+
+  call-kmmbridge-publish:
+    permissions:
+      contents: write
+      packages: write
+    uses: touchlab/KMMBridgeGithubWorkflow/.github/workflows/faktorybuildbranches.yml@v0.9

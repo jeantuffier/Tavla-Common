@@ -1,2 +1,0 @@
-username=${{secrets.ACTIONS_USERNAME}}
-password=${{secrets.ACTIONS_TOKEN}}

@@ -1,13 +1,5 @@
 name: KMMBridge Publish Release
-on:
-  workflow_dispatch:
-    secrets:
-      actions_username:
-        type: string
-        required: true
-      actions_token :
-        type: string
-        required: true
+on: workflow_dispatch
 
 jobs:
   call-kmmbridge-publish:
@@ -15,6 +7,7 @@ jobs:
       contents: write
       packages: write
     uses: touchlab/KMMBridgeGithubWorkflow/.github/workflows/faktorybuildbranches.yml@v0.9
-    secrets:
-      ACTIONS_USERNAME: ${{ inputs.ACTIONS_USERNAME }}
-      ACTIONS_TOKEN: ${{ inputs.ACTIONS_TOKEN }}
+    with:
+      machine: maven.pkg.github.com/
+      username: ${{ secrets.ACTIONS_USERNAME }}
+      password: ${{ secrets.ACTIONS_TOKEN }}

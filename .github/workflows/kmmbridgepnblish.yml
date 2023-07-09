@@ -7,6 +7,3 @@ jobs:
       contents: write
       packages: write
     uses: touchlab/KMMBridgeGithubWorkflow/.github/workflows/faktorybuildbranches.yml@v0.9
-    secrets:
-      netrcUsername:  ${{ secrets.ACTIONS_USERNAME }}
-      netrcPassword: ${{ secrets.ACTIONS_TOKEN }}

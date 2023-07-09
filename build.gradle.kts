@@ -33,19 +33,7 @@ plugins {
 repositories {
     gradlePluginPortal()
     mavenCentral()
-    maven {
-        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap/")
-        name = "ktorEap"
-    }
     google()
-    maven {
-        url = uri("https://maven.pkg.github.com/jeantuffier/statemachine")
-        name = "github"
-        credentials {
-            username = System.getenv("ACTIONS_USERNAME")
-            password = System.getenv("ACTIONS_TOKEN")
-        }
-    }
 }
 
 sqldelight {

@@ -1,7 +1,9 @@
 package no.entur.tavla.model.api
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Query(
     val layers: List<Layer>,
     val sources: List<Source>,

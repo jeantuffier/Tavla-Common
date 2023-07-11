@@ -1,7 +1,9 @@
 package no.entur.tavla.model.api
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Properties(
     val id: String,
     val gid: String,
@@ -33,6 +35,6 @@ data class Properties(
     val label: String,
     val category: List<Category>,
 
-    @SerialName("tariff_zone")
+    @SerialName("tariff_zones")
     val tariffZone: List<String>
 )

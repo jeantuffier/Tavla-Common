@@ -1,7 +1,10 @@
 package no.entur.tavla.model.api
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class StopPlaceResponse(
-    val geoCoding: GeoCoding,
+    val geocoding: GeoCoding,
     val type: String,
     val features: List<Feature>,
     val bbox: List<Float>

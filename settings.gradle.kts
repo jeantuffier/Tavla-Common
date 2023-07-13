@@ -26,4 +26,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "CommonTavla"
+rootProject.name = "common-tavla"

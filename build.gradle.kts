@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
@@ -54,13 +53,26 @@ kmmbridge {
     addGithubPackagesRepository()
 }
 
+publishing {
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/jeantuffier/Tavla-Common")
+            name = "github"
+            credentials {
+                username = System.getenv("ACTIONS_USERNAME")
+                password = System.getenv("ACTIONS_TOKEN")
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
 
     jvm()
 
-    androidTarget {
+    android {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
@@ -71,7 +83,7 @@ kotlin {
     listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach {
         it.binaries.framework {
             baseName = "CommonTavla"
-            export("com.jeantuffier.statemachine:core:$stateMachineVersion\"")
+            export("com.jeantuffier.statemachine:core:$stateMachineVersion")
             export("com.jeantuffier.statemachine:orchestrate:$stateMachineVersion")
         }
     }
@@ -161,5 +173,13 @@ tasks.withType<KotlinNativeCompile>().configureEach {
 }
 
 tasks.named("compileKotlinJvm") {
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
+}
+
+tasks.named("jvmSourcesJar") {
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
+}
+
+tasks.named("sourcesJar") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }

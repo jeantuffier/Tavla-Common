@@ -45,7 +45,6 @@ sqldelight {
     }
 }
 
-addGithubPackagesRepository()
 kmmbridge {
     mavenPublishArtifacts()
     githubReleaseVersions()

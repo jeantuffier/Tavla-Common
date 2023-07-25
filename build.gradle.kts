@@ -50,6 +50,7 @@ kmmbridge {
     githubReleaseVersions()
     spm()
     addGithubPackagesRepository()
+    versionPrefix.set("0.1")
 }
 
 publishing {

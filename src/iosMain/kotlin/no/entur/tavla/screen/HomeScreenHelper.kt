@@ -3,7 +3,7 @@ package no.entur.tavla.screen
 import com.jeantuffier.statemachine.core.StateMachine
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.StateFlow
-import no.entur.tavla.model.api.Feature
+import no.entur.tavla.model.screen.StopPlaceData
 import no.entur.tavla.screen.homeScreen.HomeScreenAction
 import no.entur.tavla.screen.homeScreen.HomeScreenState
 import org.koin.core.component.KoinComponent
@@ -16,5 +16,5 @@ class HomeScreenHelper : KoinComponent {
     @NativeCoroutinesState
     val state: StateFlow<HomeScreenState> = stateMachine.state
 
-    fun items(): List<Feature> = stateMachine.state.value.stops.items()
+    fun items(): List<StopPlaceData> = state.value.stops.items()
 }

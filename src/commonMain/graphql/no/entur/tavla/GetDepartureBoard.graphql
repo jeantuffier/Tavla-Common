@@ -1,0 +1,33 @@
+query DepartureBoardQuery($id: [String!]!){
+    stopPlaces(ids: $id) {
+        id
+        name
+        estimatedCalls(timeRange: 72100, numberOfDepartures: 100) {
+            realtime
+            aimedArrivalTime
+            aimedDepartureTime
+            expectedArrivalTime
+            expectedDepartureTime
+            actualArrivalTime
+            actualDepartureTime
+            date
+            forBoarding
+            forAlighting
+            destinationDisplay {
+                frontText
+            }
+            quay {
+                id
+            }
+            serviceJourney {
+                journeyPattern {
+                    line {
+                        id
+                        name
+                        transportMode
+                    }
+                }
+            }
+        }
+    }
+}

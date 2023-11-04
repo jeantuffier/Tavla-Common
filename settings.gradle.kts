@@ -1,16 +1,22 @@
 pluginManagement {
+    val apolloVersion: String by settings
     val kotlinVersion: String by settings
     val kmmBridgeVersion: String by settings
     val kspVersion: String by settings
+    val mockativeVersion: String by settings
+    val mokkoResourcesVersion: String by settings
     val nativeCoroutines: String by settings
     val sqlDelightVersion: String by settings
+
     plugins {
         kotlin("multiplatform") version kotlinVersion apply false
         kotlin("plugin.serialization") version kotlinVersion apply false
         id("app.cash.sqldelight") version sqlDelightVersion apply false
         id("co.touchlab.faktory.kmmbridge") version kmmBridgeVersion apply false
+        id("com.apollographql.apollo3") version apolloVersion apply false
         id("com.google.devtools.ksp") version kspVersion apply false
         id("com.rickclephas.kmp.nativecoroutines") version nativeCoroutines apply false
+        id("dev.icerock.mobile.multiplatform-resources") version mokkoResourcesVersion apply false
     }
     repositories {
         google()

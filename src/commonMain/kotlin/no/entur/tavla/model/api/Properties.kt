@@ -33,7 +33,7 @@ data class Properties(
     val localityGid: String,
 
     val label: String,
-    val category: List<Category>,
+    val category: List<StopPlaceCategory>,
 
     @SerialName("tariff_zones")
     val tariffZone: List<String>

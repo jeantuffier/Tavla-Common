@@ -2,15 +2,18 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
+val apolloVersion: String by extra
+val koinVersion: String by extra
 val kotlinVersion: String by extra
 val kotlinxCoroutinesVersion: String by extra
 val kotlinxDatetimeVersion: String by extra
 val kotlinxSerializationVersion: String by extra
-val ktorVersion: String by extra
-val sqlDelightVersion: String by extra
-val koinVersion: String by extra
-val stateMachineVersion: String by extra
 val kspVersion: String by extra
+val ktorVersion: String by extra
+val mockativeVersion: String by extra
+val mokkoResourcesVersion: String by extra
+val sqlDelightVersion: String by extra
+val stateMachineVersion: String by extra
 val arrowVersion: String by extra
 val turbineVersion: String by extra
 
@@ -26,6 +29,7 @@ plugins {
     id("app.cash.sqldelight")
     id("co.touchlab.faktory.kmmbridge")
     id("com.android.library")
+    id("com.apollographql.apollo3")
     id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")
     id("maven-publish")
@@ -35,6 +39,12 @@ repositories {
     gradlePluginPortal()
     mavenCentral()
     google()
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 sqldelight {
@@ -66,13 +76,19 @@ publishing {
     }
 }
 
+apollo {
+    service("journey_planner") {
+        packageName.set(GROUP)
+    }
+}
+
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
 
     jvm()
 
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
@@ -97,7 +113,10 @@ kotlin {
             dependencies {
                 api("com.jeantuffier.statemachine:core:$stateMachineVersion")
                 api("com.jeantuffier.statemachine:orchestrate:$stateMachineVersion")
+                api("dev.icerock.moko:resources:$mokkoResourcesVersion")
+                implementation("com.apollographql.apollo3:apollo-runtime:$apolloVersion")
                 implementation("io.arrow-kt:arrow-core:$arrowVersion")
+                implementation("io.arrow-kt:arrow-fx-coroutines:$arrowVersion")
                 implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -161,15 +180,11 @@ tasks.named("build") {
 }
 
 tasks.withType<KotlinCompile>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
 
 tasks.withType<KotlinNativeCompile>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
 
 tasks.named("compileKotlinJvm") {

@@ -1,4 +1,4 @@
-package no.entur.tavla.http
+package no.entur.tavla.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngineConfig

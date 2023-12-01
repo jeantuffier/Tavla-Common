@@ -56,6 +56,7 @@ private fun List<DepartureBoardQuery.EstimatedCall>.toDepartures() = Departures(
     transportMode = first().serviceJourney.journeyPattern!!.line.transportMode!!,
     title = departureTitle(first()),
     aimedDepartureTimes = map { it.aimedDepartureTime as String },
+    actualDepartureTimes = map { it.actualArrivalTime as String },
 )
 
 fun departureTitle(call: DepartureBoardQuery.EstimatedCall): String {

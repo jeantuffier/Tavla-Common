@@ -94,7 +94,8 @@ class HomeScreenTest {
                 "1" to Departures(
                     transportMode = TransportMode.bus,
                     title = "bus 1",
-                    aimedDepartureTimes = listOf("10:00")
+                    aimedDepartureTimes = listOf("10:00"),
+                    actualDepartureTimes = listOf("10:10"),
                 )
             ),
         )

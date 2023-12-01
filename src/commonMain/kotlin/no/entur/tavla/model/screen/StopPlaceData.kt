@@ -7,6 +7,7 @@ data class Departures(
     val transportMode: TransportMode,
     val title: String,
     val aimedDepartureTimes: List<String>,
+    val actualDepartureTimes: List<String>,
 )
 
 data class StopPlaceData(

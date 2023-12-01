@@ -11,8 +11,6 @@ val kotlinxSerializationVersion: String by extra
 val kspVersion: String by extra
 val ktorVersion: String by extra
 val mockativeVersion: String by extra
-val mokkoResourcesVersion: String by extra
-val sqlDelightVersion: String by extra
 val stateMachineVersion: String by extra
 val arrowVersion: String by extra
 val turbineVersion: String by extra
@@ -26,8 +24,6 @@ version = LIBRARY_VERSION
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    id("app.cash.sqldelight")
-    id("co.touchlab.faktory.kmmbridge")
     id("com.android.library")
     id("com.apollographql.apollo3")
     id("com.google.devtools.ksp")
@@ -45,22 +41,6 @@ allprojects {
     repositories {
         mavenCentral()
     }
-}
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName.set("no.entur.tavla")
-        }
-    }
-}
-
-kmmbridge {
-    mavenPublishArtifacts()
-    githubReleaseVersions()
-    spm()
-    addGithubPackagesRepository()
-    versionPrefix.set("0.1")
 }
 
 publishing {
@@ -84,7 +64,7 @@ apollo {
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     jvm()
 
@@ -113,7 +93,6 @@ kotlin {
             dependencies {
                 api("com.jeantuffier.statemachine:core:$stateMachineVersion")
                 api("com.jeantuffier.statemachine:orchestrate:$stateMachineVersion")
-                api("dev.icerock.moko:resources:$mokkoResourcesVersion")
                 implementation("com.apollographql.apollo3:apollo-runtime:$apolloVersion")
                 implementation("io.arrow-kt:arrow-core:$arrowVersion")
                 implementation("io.arrow-kt:arrow-fx-coroutines:$arrowVersion")
@@ -128,37 +107,27 @@ kotlin {
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation("app.cash.turbine:turbine:$turbineVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
-                implementation("io.ktor:ktor-client-mock:$ktorVersion")
-            }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("app.cash.turbine:turbine:$turbineVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
+            implementation("io.ktor:ktor-client-mock:$ktorVersion")
         }
 
-        val jvmMain by getting {
-            dependencies {
-                implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-            }
+        jvmMain.dependencies {
+            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-            }
+        androidMain.dependencies {
+            implementation("io.ktor:ktor-client-android:$ktorVersion")
+            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
         }
 
-        val iosMain by getting {
-            dependencies {
-                implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-            }
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-ios:$ktorVersion")
+            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
         }
     }
 }
